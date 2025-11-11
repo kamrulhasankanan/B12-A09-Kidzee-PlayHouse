@@ -6,6 +6,7 @@ import Navbar from "../components/Navbar";
 import Header from "../components/Header";
 import Slider from "../components/Slider";
 import RightAside from "../components/RightAside";
+import Footer from "../pages/Footer";
 
 const MainLayout = () => {
   return (
@@ -21,7 +22,9 @@ const MainLayout = () => {
             <RightAside></RightAside>
         </section>
       </main>
-      <footer></footer>
+      <footer>
+        <Footer></Footer>
+      </footer>
     </div>
   );
 };
