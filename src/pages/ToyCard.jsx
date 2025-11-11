@@ -1,5 +1,6 @@
 import React from "react";
 import { FcRating } from "react-icons/fc";
+import { Link } from "react-router";
 
 const ToyCard = ({ toy }) => {
   const {toyName, pictureURL, rating, availableQuantity, price} = toy;
@@ -19,7 +20,7 @@ const ToyCard = ({ toy }) => {
         </div>
         <p className="text-indigo-700 font-bold">$ {price}</p>        
         <div className="card-actions justify-center">
-          <button className="btn btn-warning">View More</button>
+          <Link to="/auth/cardDetails" className="btn btn-warning">View More</Link>
         </div>
       </div>
     </div>

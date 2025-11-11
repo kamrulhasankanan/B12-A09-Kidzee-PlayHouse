@@ -2,8 +2,6 @@ import React, { use } from "react";
 import ToyCard from "./ToyCard";
 
 const toysPromise = fetch("/toysData.json").then((res) => res.json());
-// console.log(toysPromise);
-
 
 const Home = () => {
 

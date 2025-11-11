@@ -2,6 +2,11 @@ import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
 import { Suspense } from "react";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
+import AuthLayout from "../layouts/AuthLayout";
+import CardDetails from "../pages/CardDetails";
+
 
 const router = createBrowserRouter([
   {
@@ -20,11 +25,26 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      
     ],
   },
   {
     path: "/auth",
-    element: <h2>Authentication</h2>,
+    element: <AuthLayout></AuthLayout>,
+    children: [
+        {
+            path: "/auth/login",
+            element: <Login></Login>
+        },
+        {
+            path: "/auth/register",
+            element: <Register></Register>
+        },
+        {
+        path: "/auth/cardDetails",
+        element: <CardDetails></CardDetails>,
+      }
+    ]
   },
   {
     path: "/profile",
