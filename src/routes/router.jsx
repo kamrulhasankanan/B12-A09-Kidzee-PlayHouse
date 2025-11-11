@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AuthLayout from "../layouts/AuthLayout";
 import CardDetails from "./../pages/CardDetails";
+import PrivateRoute from "../provider/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -42,8 +43,13 @@ const router = createBrowserRouter([
   },
   {
     path: "/card-details/:id",
-    element: <CardDetails></CardDetails>,
-    loader: ()=> fetch('/toysData.json')
+    element: (
+      <PrivateRoute>
+        <CardDetails></CardDetails>
+      </PrivateRoute>
+    ),
+
+    loader: () => fetch("/toysData.json"),
   },
   {
     path: "/profile",

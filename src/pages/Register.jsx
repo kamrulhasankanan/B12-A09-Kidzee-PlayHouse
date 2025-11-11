@@ -1,9 +1,13 @@
-import React, { use } from "react";
-import { Link } from "react-router";
+import React, { use, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
   const { createUser, setUser } = use(AuthContext);
+
+  const navigate = useNavigate();
+
+  const [passwordError, setPasswordError] = useState();
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -11,9 +15,15 @@ const Register = () => {
 
     const form = e.target;
     const name = form.name.value;
+
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
+    if (password.length < 6) {
+      setPasswordError("Password Should be 6 character");
+    } else {
+      setPasswordError("");
+    }
     console.log(name, photo, email, password);
 
     createUser(email, password)
@@ -21,11 +31,12 @@ const Register = () => {
         const user = result.user;
         // console.log(user);
         setUser(user);
+        navigate(`${user?"/":"/"}`)
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(error.code);
+        // alert(error.code);
       });
   };
 
@@ -80,10 +91,11 @@ const Register = () => {
           required
         />
 
+        {passwordError && <p className="text-xs text-error">{passwordError}</p>}
+
         {/* register btn */}
         <button
           type="submit"
-          to="/auth/login"
           className="btn btn-warning hover:btn-success mt-4 w-full"
         >
           Register

@@ -2,7 +2,7 @@ import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import userIcon from "../assets/userIcon.png";
 import { AuthContext } from "../provider/AuthProvider";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
@@ -48,6 +48,7 @@ const Navbar = () => {
           </Link>
         )}
       </div>
+      <ToastContainer></ToastContainer>
     </nav>
   );
 };
