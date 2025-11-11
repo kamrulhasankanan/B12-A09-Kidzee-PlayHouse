@@ -3,7 +3,7 @@ import { FcRating } from "react-icons/fc";
 import { Link } from "react-router";
 
 const ToyCard = ({ toy }) => {
-  const {toyName, pictureURL, rating, availableQuantity, price} = toy;
+  const {toyName, pictureURL, rating, availableQuantity, price, toyId} = toy;
   return (
     <div className="card bg-base-100 w-64 shadow-sm">
       <figure>
@@ -20,7 +20,7 @@ const ToyCard = ({ toy }) => {
         </div>
         <p className="text-indigo-700 font-bold">$ {price}</p>        
         <div className="card-actions justify-center">
-          <Link to="/auth/cardDetails" className="btn btn-warning">View More</Link>
+          <Link to={`/card-details/${toyId}`} className="btn btn-warning">View More</Link>
         </div>
       </div>
     </div>

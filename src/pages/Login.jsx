@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import { Link } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login = () => {
 
@@ -20,7 +21,7 @@ const Login = () => {
     }).catch(error=>{
       const errorCode = error.code;
       const errorMessage = error.message;
-      alert("Please register")
+      toast.warn("Please Register Your Account")
     })
   
   }
@@ -44,6 +45,7 @@ const Login = () => {
         {/* register */}
         <div><p className="text-sm">Don't have an account? <Link to="/auth/register" className="text-indigo-700">Register</Link></p></div>
       </form>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

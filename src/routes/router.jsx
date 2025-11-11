@@ -5,8 +5,7 @@ import { Suspense } from "react";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AuthLayout from "../layouts/AuthLayout";
-import CardDetails from "../pages/CardDetails";
-
+import CardDetails from "./../pages/CardDetails";
 
 const router = createBrowserRouter([
   {
@@ -25,26 +24,26 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
-      
     ],
   },
   {
     path: "/auth",
     element: <AuthLayout></AuthLayout>,
     children: [
-        {
-            path: "/auth/login",
-            element: <Login></Login>
-        },
-        {
-            path: "/auth/register",
-            element: <Register></Register>
-        },
-        {
-        path: "/auth/cardDetails",
-        element: <CardDetails></CardDetails>,
-      }
-    ]
+      {
+        path: "/auth/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/auth/register",
+        element: <Register></Register>,
+      },
+    ],
+  },
+  {
+    path: "/card-details/:id",
+    element: <CardDetails></CardDetails>,
+    loader: ()=> fetch('/toysData.json')
   },
   {
     path: "/profile",
