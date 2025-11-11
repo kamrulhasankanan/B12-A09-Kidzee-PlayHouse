@@ -7,6 +7,7 @@ import Register from "../pages/Register";
 import AuthLayout from "../layouts/AuthLayout";
 import CardDetails from "./../pages/CardDetails";
 import PrivateRoute from "../provider/PrivateRoute";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/*",
-    element: <h2>Error 404 Error</h2>,
+    element: <ErrorPage></ErrorPage>
   },
 ]);
 
