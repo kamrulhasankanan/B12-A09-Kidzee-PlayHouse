@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 
 const Register = () => {
-  const { createUser, setUser } = use(AuthContext);
+  const { createUser, setUser, updateUser } = use(AuthContext);
 
   const navigate = useNavigate();
 
@@ -11,7 +11,7 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    // console.log(e.target);
 
     const form = e.target;
     const name = form.name.value;
@@ -29,13 +29,19 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        // console.log(user);
-        setUser(user);
-        navigate(`${user?"/":"/"}`)
+        updateUser({ displayName: name, photoURL: photo })
+          .then(() => {
+            setUser({ ...user, displayName: name, photoURL: photo });
+            navigate("/");
+          })
+          .catch((error) => {
+            console.log(error);
+            setUser(user);
+          });
       })
       .catch((error) => {
         const errorCode = error.code;
-        // const errorMessage = error.message; 
+        // const errorMessage = error.message;
         // alert(error.code);
       });
   };

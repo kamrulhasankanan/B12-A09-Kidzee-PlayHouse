@@ -30,15 +30,23 @@ const Navbar = () => {
           My Profile
         </NavLink>
       </div>
-      <div className="flex items-center gap-1">
-        <img className="w-10" src={userIcon} alt="" />
+      <div className="flex items-center gap-5">
         {user ? (
-          <button
-            onClick={handleLogOut}
-            className="btn btn-warning w-full hover:btn-success"
-          >
-            LogOut
-          </button>
+          <>
+            <img
+              className="w-10 h-10 rounded-full border cursor-pointer"
+              src={user.photoURL ? user.photoURL : userIcon}
+              alt="UserImage"
+              title={user.displayName ? user.displayName : user.email}
+            />
+
+            <button
+              onClick={handleLogOut}
+              className="btn btn-warning hover:btn-success"
+            >
+              LogOut
+            </button>
+          </>
         ) : (
           <Link
             to="/auth/login"

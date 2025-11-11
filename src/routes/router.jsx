@@ -8,6 +8,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import CardDetails from "./../pages/CardDetails";
 import PrivateRoute from "../provider/PrivateRoute";
 import ErrorPage from "../pages/ErrorPage";
+import Loading from "../pages/Loading";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
         element: (
           <Suspense
             fallback={
-              <span className="loading loading-spinner text-warning"></span>
+              <Loading></Loading>
             }
           >
             <Home></Home>
@@ -51,6 +52,7 @@ const router = createBrowserRouter([
     ),
 
     loader: () => fetch("/toysData.json"),
+    hydrateFallbackElement: <Loading></Loading>,
   },
   {
     path: "/profile",
