@@ -4,6 +4,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import { FcGoogle } from "react-icons/fc";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -28,6 +29,8 @@ const Register = () => {
 
   const [passwordError, setPasswordError] = useState();
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleRegister = (e) => {
     e.preventDefault();
     // console.log(e.target);
@@ -40,16 +43,17 @@ const Register = () => {
     const password = form.password.value;
 
     const length6Pattern = /^.{6,}$/;
-    const casePattern = /^(?=.*[a-z])(?=.*[A-Z]).+$/
+    const casePattern = /^(?=.*[a-z])(?=.*[A-Z]).+$/;
 
-    if (!length6Pattern.test(password)){
-      setPasswordError("Password must be 6 character or longer")
-      return      
-    }
-    else if(!casePattern.test(password)){
-      setPasswordError("Password must be One uppercase and lowe case character")
+    if (!length6Pattern.test(password)) {
+      setPasswordError("Password must be 6 character or longer");
       return;
-    }    
+    } else if (!casePattern.test(password)) {
+      setPasswordError(
+        "Password must be One uppercase and lowe case character"
+      );
+      return;
+    }
 
     createUser(email, password)
       .then((result) => {
@@ -69,6 +73,11 @@ const Register = () => {
         // const errorMessage = error.message;
         // alert(error.code);
       });
+  };
+
+  const handleTogglePasswordShow = (event) => {
+    event.preventDefault();
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -114,13 +123,21 @@ const Register = () => {
 
         {/* password */}
         <label className="label">Password</label>
-        <input
-          name="password"
-          type="password"
-          className="input"
-          placeholder="Password"
-          required
-        />
+        <div className="relative">
+          <input
+            name="password"
+            type={showPassword ? "text" : "password"}
+            className="input"
+            placeholder="Password"
+            required
+          />
+          <button
+            onClick={handleTogglePasswordShow}
+            className="btn btn-xs absolute top-2 right-2"
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye></FaEye>}
+          </button>
+        </div>
 
         {passwordError && <p className="text-xs text-error">{passwordError}</p>}
 
