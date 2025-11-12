@@ -5,29 +5,22 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import { FcGoogle } from "react-icons/fc";
 
-
-
 const googleProvider = new GoogleAuthProvider();
 
-const auth = getAuth(app)
+const auth = getAuth(app);
 
 const Login = () => {
-
-  const handleGoogleSignIn=()=>{
-    
+  const handleGoogleSignIn = () => {
     signInWithPopup(auth, googleProvider)
-    .then(result =>{
-      console.log(result);
-      setUser(result.user)
-      navigate("/")
-      
-    })
-    .catch(error=>{
-      console.log(error);
-      
-    })
-    
-  }
+      .then((result) => {
+        // console.log(result);
+        setUser(result.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const [error, setError] = useState("");
 
@@ -108,7 +101,12 @@ const Login = () => {
           </p>
         </div>
       </form>
-      <button onClick={handleGoogleSignIn} className="btn btn-outline btn-secondary"><FcGoogle /> Sign In With Google</button>
+      <button
+        onClick={handleGoogleSignIn}
+        className="btn btn-outline btn-secondary"
+      >
+        <FcGoogle /> Sign In With Google
+      </button>
     </div>
   );
 };

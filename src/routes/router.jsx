@@ -9,6 +9,7 @@ import CardDetails from "./../pages/CardDetails";
 import PrivateRoute from "../provider/PrivateRoute";
 import ErrorPage from "../pages/ErrorPage";
 import Loading from "../pages/Loading";
+import MyProfile from "../pages/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -18,11 +19,7 @@ const router = createBrowserRouter([
       {
         path: "",
         element: (
-          <Suspense
-            fallback={
-              <Loading></Loading>
-            }
-          >
+          <Suspense fallback={<Loading></Loading>}>
             <Home></Home>
           </Suspense>
         ),
@@ -56,11 +53,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <h2>My Profile</h2>,
+    element: (
+      <PrivateRoute>
+        <MyProfile></MyProfile>
+      </PrivateRoute>
+    ),
   },
   {
     path: "/*",
-    element: <ErrorPage></ErrorPage>
+    element: <ErrorPage></ErrorPage>,
   },
 ]);
 

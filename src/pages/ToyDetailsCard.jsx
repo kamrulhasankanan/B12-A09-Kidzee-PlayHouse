@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const ToyDetailsCard = ({toys}) => {
-    // console.log(toys)
+   
     return (
         <div className='space-y-5'>
             <img className='w-[300px] h-[300px] mx-auto rounded-full' src={toys.pictureURL} alt="" />
