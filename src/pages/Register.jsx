@@ -1,8 +1,27 @@
 import React, { use, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
+import { FcGoogle } from "react-icons/fc";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import app from "../firebase/firebase.config";
+
+const googleProvider = new GoogleAuthProvider();
+
+const auth = getAuth(app);
 
 const Register = () => {
+  const handleGoogleSignUp = () => {
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        console.log(result);
+        setUser(result.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const { createUser, setUser, updateUser } = use(AuthContext);
 
   const navigate = useNavigate();
@@ -19,12 +38,18 @@ const Register = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    if (password.length < 6) {
-      setPasswordError("Password Should be 6 character");
-    } else {
-      setPasswordError("");
+
+    const length6Pattern = /^.{6,}$/;
+    const casePattern = /^(?=.*[a-z])(?=.*[A-Z]).+$/
+
+    if (!length6Pattern.test(password)){
+      setPasswordError("Password must be 6 character or longer")
+      return      
     }
-    console.log(name, photo, email, password);
+    else if(!casePattern.test(password)){
+      setPasswordError("Password must be One uppercase and lowe case character")
+      return;
+    }    
 
     createUser(email, password)
       .then((result) => {
@@ -116,6 +141,12 @@ const Register = () => {
           </p>
         </div>
       </form>
+      <button
+        onClick={handleGoogleSignUp}
+        className="btn btn-outline btn-secondary"
+      >
+        <FcGoogle /> Sign Up With Google
+      </button>
     </div>
   );
 };

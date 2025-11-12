@@ -1,9 +1,34 @@
 import React, { use, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import app from "../firebase/firebase.config";
+import { FcGoogle } from "react-icons/fc";
 
+
+
+const googleProvider = new GoogleAuthProvider();
+
+const auth = getAuth(app)
 
 const Login = () => {
+
+  const handleGoogleSignIn=()=>{
+    
+    signInWithPopup(auth, googleProvider)
+    .then(result =>{
+      console.log(result);
+      setUser(result.user)
+      navigate("/")
+      
+    })
+    .catch(error=>{
+      console.log(error);
+      
+    })
+    
+  }
+
   const [error, setError] = useState("");
 
   const location = useLocation();
@@ -28,8 +53,7 @@ const Login = () => {
       .catch((error) => {
         const errorCode = error.code;
         // const errorMessage = error.message;
-        setError(errorCode)
-        
+        setError(errorCode);
       });
   };
 
@@ -83,7 +107,8 @@ const Login = () => {
             </Link>
           </p>
         </div>
-      </form>      
+      </form>
+      <button onClick={handleGoogleSignIn} className="btn btn-outline btn-secondary"><FcGoogle /> Sign In With Google</button>
     </div>
   );
 };
